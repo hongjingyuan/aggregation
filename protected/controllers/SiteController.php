@@ -8,13 +8,10 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$recommend = new CDbCriteria();
-		$recommend->limit = 12;
-		$recommends = $this->problem($recommend);
+		$model = new Problem();
+		$recommends = $model->idDesc()->findAll();
 		
-		$answer = new CDbCriteria();
-		$answer->limit = 12;
-		$answers = $this->problem($answer);
+		$answers = $model->idDesc()->findAll();
 		
 		//$tops = $this->top();
 		
@@ -31,8 +28,8 @@ class SiteController extends Controller
 	 *  精彩推荐更多页
 	 */
 	public function actionRecommend (){
-		
-		$recommends = $this->problem();
+		$model = new Problem();
+		$recommends =  $model->idDesc()->findAll();
 		CVarDumper::dump($recommends,3,true);die;
 		
 		$this->render('recommend',array(
@@ -44,31 +41,13 @@ class SiteController extends Controller
 	 * 等待您来回答更多页
 	 */
 	public function actionAnswer(){
-		
-		$answer = $this->problem();
+		$model = new Problem();
+		$answer = $model->idDesc()->findAll();
 		
 		$this->render('answer',array(
 				'answer' => $answer
 		));
 		
 	}
-	
-	/**
-
-	 * 查询所有的问题
-
-	 * @param unknown_type $criteria
-
-	 */
-	public function problem(){
-
-		$model = new Problem();
-
-		$problem = $model->limt()->findAll();
-	
-		return $problem;
-
-	}
-
 	
 }
