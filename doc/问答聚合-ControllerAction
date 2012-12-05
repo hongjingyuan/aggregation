@@ -1,0 +1,8 @@
+问答聚合-aggregation：
+	Controller、action：
+		SiteController：
+			actionIndex    			问答聚合首页,查询问题与票数最多的12条问题（精彩推荐）
+									查询最新的没有回答的12条问题（等待您来回答）
+									查询出一周内问题加答案最多的10个词条
+			actionRecommend     	精彩推荐更多页,查询问题与票数最多的问题
+			actionAnswer			等待您来回答更多页，查询没有回答的问题
