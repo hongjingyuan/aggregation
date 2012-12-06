@@ -29,8 +29,7 @@ class SiteController extends Controller
 	 */
 	public function actionRecommend (){
 		$model = new Problem();
-		$recommends =  $model->idDesc()->findAll();
-		CVarDumper::dump($recommends,3,true);die;
+		$recommends =  $model->limit()->findAll();
 		
 		$this->render('recommend',array(
 				'recommend' => $recommends
@@ -42,7 +41,7 @@ class SiteController extends Controller
 	 */
 	public function actionAnswer(){
 		$model = new Problem();
-		$answer = $model->idDesc()->findAll();
+		$answer = $model->limit()->findAll();
 		
 		$this->render('answer',array(
 				'answer' => $answer

@@ -55,16 +55,32 @@ class Problem extends CActiveRecord
 	
 	public function scopes() {
 		return array(
-			'status'=>array(
-					'condition'=>'status=1',
-			),
+				'myJoin' => array(
+						'select' => 't.*',
+						'join' => 'LEFT JOIN tbl_quanzi_member q ON (t.qid = q.qid and t.owner <> q.uid)',
+						'condition' => 'uid = :owner AND t.state = 1',
+						'order' => 'q.time DESC',
+						'group' => 'q.qid',
+						'params' => array(
+								':owner' => Yii::app()->user->id
+						)),
 			'idDesc'=>array(
-					'order'=>'id DESC',
-					'limit'=>'2'
+					'alias'=>'t',
+					'select'=>'t.*,count(a.pid) as num',
+					'join' => 'LEFT JOIN answer a ON (t.id=a.pid)',
+					'group'=>'a.pid',
+					'condition'=>'t.status=1',
+					'order'=>'num DESC,id DESC',
+					'limit'=>'12'
 			),
-			'limt'=>array(
-					'order'=>'id DESC',
-					'limit'=>'1'
+			'limit'=>array(
+					'alias'=>'t',
+					'select'=>'t.*,count(a.pid) as num',
+					'join' => 'LEFT JOIN answer a ON (t.id=a.pid)',
+					'group'=>'a.pid',
+					'condition'=>'t.status=1',
+					'order'=>'num DESC,id DESC',
+					'limit'=>'20'
 			),
 	);
 	}
